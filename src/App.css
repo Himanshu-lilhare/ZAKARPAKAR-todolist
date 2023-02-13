@@ -193,8 +193,9 @@ border: 1px solid rgb(216, 216, 216);
   padding: 6px;
 background: linear-gradient(0deg,black,rgb(73, 72, 72));
   position: absolute;
-  top: -47px;
+  bottom: -47px;
   right: -23px;
+  z-index: 2;
   /* display: none; */
 }
 .displaynone{
