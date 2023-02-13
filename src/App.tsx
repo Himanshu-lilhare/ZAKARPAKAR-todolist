@@ -26,8 +26,15 @@ function App() {
      }
   }
   useEffect(()=>{
-  setTodos(JSON.parse(localStorage.getItem('todos') || ''))
+     const storedTodos=localStorage.getItem('todos')
+     if(storedTodos){
+ setTodos(JSON.parse(localStorage.getItem('todos') || ''))
+      
+     }
+       
   },[])
+
+  
   return (
   <div className='app'>
    <div className='wrapper glow black'>

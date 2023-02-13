@@ -21,30 +21,35 @@ const active=useRef<HTMLInputElement>(null)
 const display=useRef<HTMLDivElement>(null)
 const [visible,setVisible]=useState<boolean>(false)
 
-  function handleDelete(id:number){
-    setTodos(todos.filter((todo)=>{
+   function handleDelete(id:number){
+    const filteredTodos=todos.filter((todo)=>{
       return todo.id!==id
-    }))
-    localStorage.clear()
-    localStorage.setItem('todos',JSON.stringify(todos))
+    })
+    // localStorage.clear()
+    localStorage.setItem('todos',JSON.stringify(filteredTodos))
+    setTodos(JSON.parse(localStorage.getItem('todos')||''))
+    
+     
   }
   function handleComplete(id:number){
-   setTodos(todos.map((todo)=>{
-    if(todo.id==id){
-      return {
-       ...todo,isDone:!todo.isDone
+    const completedTodos=todos.map((todo)=>{
+      if(todo.id==id){
+        return {
+         ...todo,isDone:!todo.isDone
+        }
+      }else{
+        return todo
       }
-    }else{
-      return todo
-    }
-   }))
+     })
+     localStorage.setItem('todos',JSON.stringify(completedTodos))
+     setTodos(JSON.parse(localStorage.getItem('todos')||''))
   }
 function handleEdit(e:any,id:number){
   e.preventDefault()
-  setTodos(todos.map((todo)=> todo.id==id ?{...todo,todo:editTodo} : todo ))
-  localStorage.clear() 
-  localStorage.setItem('todos',JSON.stringify(todos))
-  setEdit(false)
+  const editedTodos=todos.map((todo)=> todo.id==id ?{...todo,todo:editTodo} : todo )
+  localStorage.setItem('todos',JSON.stringify(editedTodos))
+  setTodos(JSON.parse(localStorage.getItem('todos')||''))
+   setEdit(false)
 }
 useEffect(()=>{
 active.current?.focus()
