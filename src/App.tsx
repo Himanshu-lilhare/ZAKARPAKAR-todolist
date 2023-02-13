@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import TodoWrapper from './components/TodoWrapper'
@@ -18,12 +18,16 @@ function App() {
      if(todo){
     
         todos.push({id:Date.now(),todo:todo,isDone:false})
+        localStorage.setItem('todos',JSON.stringify(todos))
         settodo('')
       
      
       console.log(todos)
      }
   }
+  useEffect(()=>{
+  setTodos(JSON.parse(localStorage.getItem('todos') || ''))
+  },[])
   return (
   <div className='app'>
    <div className='wrapper glow black'>

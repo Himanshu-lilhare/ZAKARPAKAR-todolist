@@ -25,7 +25,8 @@ const [visible,setVisible]=useState<boolean>(false)
     setTodos(todos.filter((todo)=>{
       return todo.id!==id
     }))
-    console.log(todos)
+    localStorage.clear()
+    localStorage.setItem('todos',JSON.stringify(todos))
   }
   function handleComplete(id:number){
    setTodos(todos.map((todo)=>{
@@ -41,7 +42,9 @@ const [visible,setVisible]=useState<boolean>(false)
 function handleEdit(e:any,id:number){
   e.preventDefault()
   setTodos(todos.map((todo)=> todo.id==id ?{...todo,todo:editTodo} : todo ))
-   setEdit(false)
+  localStorage.clear() 
+  localStorage.setItem('todos',JSON.stringify(todos))
+  setEdit(false)
 }
 useEffect(()=>{
 active.current?.focus()
